@@ -1,27 +1,35 @@
 public with sharing class BillAPI {
     public static void getBills() {
-        //start by creating an HttpRequest object and set the endpoint and method.
+        /* 
+        Start by creating an HttpRequest object and set the endpoint and method.
+        Endpoint: https://my-json-server.typicode.com/grizzleevelyn/231017_dev_clicked/db
+        Method: GET
+        Learn more about HTTPRequest: https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_classes_restful_http_httprequest.htm
+        */
 
-        //set up an Http object and an HTTPResponse Object and use the .getBody() method here.
+        // Set up an Http object and an HTTPResponse object, then use the .getBody() method to get the response body.
 
-        //Use the following to deserialize the JSON response into a wrapper class:
+        // Deserialize the JSON response into a list of BillWrapper objects.
+        // Learn more about JSON.deserialize: https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_class_System_Json.htm#apex_System_Json_deserialize
 
-        //create a list of bills to insert
+        // Create a list to hold the bills we will insert into Salesforce.
 
-        //query for active accounts (Active__c = 'Yes')
+        // Query for active accounts (Active__c = 'Yes').
+        // Learn more about SOQL: https://trailhead.salesforce.com/en/content/learn/modules/apex_database/apex_database_soql
 
-        //create an active account map in the form of Map<String, Id>
+        // Create a map to hold active account names and their IDs.
+        // Learn more about Maps: https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_methods_system_map.htm
 
-        //iterate over the list of active accounts, and use the .put() method of the Map class
-        // to insert the account name and Id as the key value pair.
-        //https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_methods_system_map.htm
+        // Iterate over the list of active accounts and add their name and ID to the map.
 
-        //iterate over the list of BillWrappers, bwList, and create a new bill in each iteration.
-        //Match the new bill fields with the properties of the BillWrapper class, using the following for
-        //Bill__c.Balance:
-        //billToInsert.Balance__c = Decimal.valueOf(bw.balance.replace('$', ''));
-        //at the end of the for loop, add the newly created bill to a list of bills to insert
-        //remember, DML should not go in for loops!
+
+        /*
+        Iterate over the list of BillWrapper objects and create a new Bill__c record for each.
+        Match the new bill fields with the properties of the BillWrapper class.
+        For example, for Bill__c.Balance__c, use Decimal.valueOf(bw.balance.replace('$', '')) to convert the balance to a decimal.
+        Remember, DML (Data Manipulation Language) operations should not be inside loops. Learn more about DML: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_dml_section.htm
+        */
+
 
         //finally, insert the new bills list
     }
