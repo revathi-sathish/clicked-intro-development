@@ -1,4 +1,4 @@
-# Introduction to Salesforce Developement
+# Introduction to Salesforce Development
 
 The template repository for the data for the 08/19/2024 Developer Sprint for Clicked.
 
