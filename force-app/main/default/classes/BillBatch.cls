@@ -8,6 +8,7 @@ public with sharing class BillBatch implements Database.Batchable<sObject>, Data
         //Hint: be sure to escape the single quotes surrounding \'Yes\' in your dynamic query!
         //query for the following fields:
         //Id, Bill_By_Email__c
+        return null;
     }
 
     public void execute(Database.BatchableContext bc, List<Account> scope) {
