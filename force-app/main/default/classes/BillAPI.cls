@@ -2,7 +2,7 @@ public with sharing class BillAPI {
     public static void getBills() {
         /* 
         Start by creating an HttpRequest object and set the endpoint and method.
-        Endpoint: https://my-json-server.typicode.com/grizzleevelyn/231017_dev_clicked/db
+        Endpoint: https://my-json-server.typicode.com/walters954/clicked-intro-development-server/bills
         Method: GET
         Learn more about HTTPRequest: https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_classes_restful_http_httprequest.htm
         */
