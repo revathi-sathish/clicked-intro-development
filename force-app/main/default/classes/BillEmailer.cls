@@ -1,45 +1,50 @@
 public with sharing class BillEmailer {
     public static void sendEmails(Map<String, Blob> emailsWithBills) {
-        //instantiate a list of Messaging.SingleEmailMessage objects
+        // Create a list to hold email messages
+        List<Messaging.SingleEmailMessage> emailsToSend = new List<Messaging.SingleEmailMessage>();
 
-        //iterate over the keyset of the emailsWithBills map and instantiate a single Messaging.SingleEmailMessage
-        //object. Set the bccAddress to the email from the iteration, set a PlainTextBody, and set a Subject for the
-        //Messaging.SingleEmailMessage object.
-
+        // Go through each email in the emailsWithBills map
         for (String email : emailsWithBills.keySet()) {
-            //use the following
-            //to attach the PDF blob to the email:
+            // Create a new email message
+            Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+
+            // Set the email address, subject, and body
+            mail.setToAddresses(new List<String>{ email });
+            mail.setSubject('Your Bill');
+            mail.setPlainTextBody('Please find your bill attached.');
+
+            // Attach the PDF bill to the email
             Messaging.EmailFileAttachment attach = new Messaging.EmailFileAttachment();
             attach.Body = emailsWithBills.get(email);
             attach.FileName =
                 'Bill-' +
-                Date.Today().Month() +
+                Date.today().month() +
                 '-' +
-                Date.Today().Day() +
+                Date.today().day() +
                 '-' +
-                Date.Today().Year() +
+                Date.today().year() +
                 '.pdf';
             attach.ContentType = 'application/pdf';
-
             mail.setFileAttachments(
                 new List<Messaging.EmailFileAttachment>{ attach }
             );
 
-            //add the Messaging.SingleEmailMessage object to the list inside of the loop, and send the email outside of the loop.
+            // Add the email message to the list
+            emailsToSend.add(mail);
         }
 
+        // Send all the emails
         Messaging.SendEmailResult[] results = Messaging.sendEmail(emailsToSend);
-        // Call a helper method to inspect the returned results
+
+        // Check the results of the email send operation
         inspectResults(results);
     }
 
-    //this is a method that will allow you to check to see if your code works.
+    // This method checks if the emails were sent successfully
     private static Boolean inspectResults(Messaging.SendEmailResult[] results) {
         Boolean sendResult = true;
-        // sendEmail returns an array of result objects.
-        // Iterate through the list to inspect results.
-        // In this class, the methods send only one email,
-        // so we should have only one result.
+
+        // Look at each result to see if the email was sent successfully
         for (Messaging.SendEmailResult res : results) {
             if (res.isSuccess()) {
                 System.debug('Email sent successfully');
